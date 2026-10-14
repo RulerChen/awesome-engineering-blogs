@@ -1,0 +1,11 @@
+[
+  {
+    "title": "Redesigning source control at Anthropic",
+    "url": "https://www.anthropic.com/engineering/redesigning-source-control",
+    "source": "Anthropic",
+    "publishedAt": "2026-10-13",
+    "domain": "programming",
+    "tags": ["version-control", "monorepo", "caching", "migration", "git"],
+    "summary": "Moves a 100 GB git monorepo to Scion: a changeset WAL, refs as Spanner CAS, and tiered content-addressed caches."
+  }
+]

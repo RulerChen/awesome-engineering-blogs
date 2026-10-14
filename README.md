@@ -17,6 +17,7 @@
 | Blog                                                       | Read through |
 | ---------------------------------------------------------- | ------------ |
 | [Airbnb](https://medium.com/airbnb-engineering)            | 2026-10-07   |
+| [Anthropic](https://www.anthropic.com/engineering)         | 2026-10-14   |
 | [Amazon Science](https://www.amazon.science/blog)          | 2026-10-07   |
 | [Atlassian](https://www.atlassian.com/blog/how-we-build)   | 2026-10-07   |
 | [AWS](https://aws.amazon.com/blogs/)                       | 2026-10-07   |
