@@ -1,0 +1,29 @@
+[
+  {
+    "title": "How Google Does It: Building the largest known Kubernetes cluster, with 130,000 nodes",
+    "url": "https://cloud.google.com/blog/products/containers-kubernetes/how-we-built-a-130000-node-gke-cluster",
+    "source": "Google",
+    "publishedAt": "2025-11-22",
+    "domain": "infrastructure",
+    "tags": ["control-plane", "caching", "kubernetes"],
+    "summary": "Stops reads from swamping a huge GKE cluster's datastore by serving consistent and paged lists from API server memory."
+  },
+  {
+    "title": "Colossus: the secret ingredient in Rapid Storage’s high performance",
+    "url": "https://cloud.google.com/blog/products/storage-data-transfer/how-the-colossus-stateful-protocol-benefits-rapid-storage",
+    "source": "Google",
+    "publishedAt": "2025-04-10",
+    "domain": "database",
+    "tags": ["object-storage", "file-system"],
+    "summary": "Cuts Cloud Storage latency with streams that check auth once, then read and append on disks via a Colossus handle."
+  },
+  {
+    "title": "AlloyDB for PostgreSQL under the hood: Intelligent, database-aware storage",
+    "url": "https://cloud.google.com/blog/products/databases/alloydb-for-postgresql-intelligent-scalable-storage",
+    "source": "Google",
+    "publishedAt": "2022-05-12",
+    "domain": "database",
+    "tags": ["storage-engine", "replication", "postgresql"],
+    "summary": "Ends per-replica Postgres copies by having AlloyDB's storage replay the WAL into blocks that every node reads."
+  }
+]
