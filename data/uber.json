@@ -1,5 +1,14 @@
 [
   {
+    "title": "Translations at Scale: Memory Optimization Techniques That Kept Uber's P99 Under 1ms",
+    "url": "https://www.uber.com/blog/translations-at-scale/",
+    "source": "Uber",
+    "publishedAt": "2026-10-15",
+    "domain": "programming",
+    "tags": ["garbage-collection", "caching", "go"],
+    "summary": "Cuts GC load from in-memory translations by swapping sync.Map for a plain map, then serving cold entries from disk."
+  },
+  {
     "title": "Halving the Time: How Uber Eats Rebuilt Its Search Pipeline",
     "url": "https://www.uber.com/blog/uber-eats-search-pipeline/",
     "source": "Uber",

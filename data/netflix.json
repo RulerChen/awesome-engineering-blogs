@@ -1,5 +1,23 @@
 [
   {
+    "title": "TimeSeries Tiered Storage Journey: Kafka/Flink Streams to Native Cassandra Cold Reads",
+    "url": "https://netflixtechblog.com/timeseries-tiered-storage-journey-kafka-flink-streams-to-native-cassandra-cold-reads-e59d597c9d60",
+    "source": "Netflix",
+    "publishedAt": "2026-10-14",
+    "domain": "database",
+    "tags": ["time-series", "tiering", "cassandra", "s3"],
+    "summary": "Cuts the cost of old TimeSeries data on Cassandra disks by serving cold reads from its S3 backups via a custom memtable."
+  },
+  {
+    "title": "Behind the Scenes: Evolving Netflix’s Ads Event Pipeline for Live — Part II",
+    "url": "https://netflixtechblog.com/behind-the-scenes-evolving-netflixs-ads-event-pipeline-for-live-part-ii-826ebf9ad9fb",
+    "source": "Netflix",
+    "publishedAt": "2026-10-14",
+    "domain": "data",
+    "tags": ["stream-processing", "migration", "multi-region", "flink"],
+    "summary": "Takes a must-succeed metadata write off Live ad serving by joining client events to logged ad responses in Flink."
+  },
+  {
     "title": "A Tale of Two Flink Autoscalers",
     "url": "https://netflixtechblog.com/a-tale-of-two-flink-autoscalers-e9f6a1b1492b",
     "source": "Netflix",

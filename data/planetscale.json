@@ -1,5 +1,14 @@
 [
   {
+    "title": "What gets TOASTed in Postgres",
+    "url": "https://planetscale.com/blog/what-gets-toasted-in-postgres",
+    "source": "PlanetScale",
+    "publishedAt": "2026-10-12",
+    "domain": "database",
+    "tags": ["storage-engine", "postgresql"],
+    "summary": "Explains when TOAST compresses or moves out big Postgres values, and picks LZ4 except for prefix reads and byte slices."
+  },
+  {
     "title": "Designing Neki for performance",
     "url": "https://planetscale.com/blog/designing-neki-for-performance",
     "source": "PlanetScale",

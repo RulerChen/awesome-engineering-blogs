@@ -1,5 +1,14 @@
 [
   {
+    "title": "Under the hood, off the hot path: How D1 scales to millions of databases",
+    "url": "https://blog.cloudflare.com/d1-control-plane/",
+    "source": "Cloudflare",
+    "publishedAt": "2026-10-13",
+    "domain": "database",
+    "tags": ["caching", "control-plane", "postgresql"],
+    "summary": "Keeps D1 queries off central Postgres via Workers KV routing and per-database heartbeats that repair stale state."
+  },
+  {
     "title": "How we built saga rollbacks for Cloudflare Workflows",
     "url": "https://blog.cloudflare.com/rollbacks-for-workflows/",
     "source": "Cloudflare",
