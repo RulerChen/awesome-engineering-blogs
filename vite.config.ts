@@ -1,4 +1,7 @@
+import { readFile, rm, writeFile } from "node:fs/promises";
 import type { ServerResponse } from "node:http";
+import { resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 import vue from "@vitejs/plugin-vue";
 import { type HtmlTagDescriptor, type Plugin, defineConfig } from "vite";
 import { DATA_DIR } from "./scripts/lib/paths.js";
@@ -143,6 +146,7 @@ function roadmapPages(): Plugin {
   return {
     name: "roadmap-pages",
     apply: "build",
+    applyToEnvironment: (environment) => environment.name === "client",
     configResolved(config) {
       base = config.base;
     },
@@ -173,6 +177,7 @@ function sitemap(): Plugin {
   return {
     name: "sitemap",
     apply: "build",
+    applyToEnvironment: (environment) => environment.name === "client",
     configResolved(config) {
       base = config.base;
     },
@@ -194,6 +199,64 @@ function sitemap(): Plugin {
         fileName: "robots.txt",
         source: `User-agent: *\nAllow: /\n\nSitemap: ${root}sitemap.xml\n`,
       });
+    },
+  };
+}
+
+/** The server build of the app, which only the prerender reads; removed once it has run. */
+const SSR_OUT_DIR = "dist-ssr";
+
+/** The empty root every page's HTML has until the prerender draws the app into it. */
+const APP_ROOT = '<div id="app"></div>';
+
+/** Build only: draws the app into every page's HTML, so crawlers that run no script still read it; main.ts hydrates it. */
+function prerender(): Plugin {
+  return {
+    name: "prerender",
+    apply: "build",
+    config: () => ({
+      builder: {},
+      environments: {
+        ssr: {
+          build: {
+            outDir: SSR_OUT_DIR,
+            copyPublicDir: false,
+            rollupOptions: { input: "src/entry-server.ts" },
+          },
+        },
+      },
+    }),
+    buildApp: {
+      // After the config's own buildApp, which builds nothing, and before Vite's fallback of building every environment.
+      order: "post",
+      async handler(builder) {
+        const { client, ssr } = builder.environments;
+        await builder.build(client);
+        await builder.build(ssr);
+        const ssrDir = resolve(ssr.config.root, ssr.config.build.outDir);
+        const entry = pathToFileURL(resolve(ssrDir, "entry-server.js")).href;
+        const { render } = (await import(entry)) as typeof import("./src/entry-server.js");
+        const files = await siteFiles(await readEntries());
+        const outDir = resolve(client.config.root, client.config.build.outDir);
+        const heads = [
+          PAGE_HEADS.blog,
+          PAGE_HEADS.roadmap,
+          ...(await readRoadmaps()).map(topicHead),
+        ];
+        for (const { path } of heads) {
+          const file = resolve(outDir, path, "index.html");
+          const html = await readFile(file, "utf8");
+          if (!html.includes(APP_ROOT))
+            throw new Error(`prerender: no app root in ${path}index.html`);
+          const app = `<div id="app" data-path="${path}">${await render(path, files)}</div>`;
+          // A function, so a `$&` in the drawn text is not read as a replacement pattern.
+          await writeFile(
+            file,
+            html.replace(APP_ROOT, () => app),
+          );
+        }
+        await rm(ssrDir, { recursive: true });
+      },
     },
   };
 }
@@ -249,5 +312,5 @@ function liveData(): Plugin {
 
 export default defineConfig({
   base: "/",
-  plugins: [vue(), sharedHead(), roadmapPages(), sitemap(), liveData()],
+  plugins: [vue(), sharedHead(), roadmapPages(), sitemap(), prerender(), liveData()],
 });

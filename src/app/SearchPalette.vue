@@ -16,7 +16,6 @@ import { openTopic, searchList } from "./pages.js";
 
 /** Rows per group, enough to pick from; past this the query wants another word, or the list. */
 const GROUP_SIZE = 10;
-const IS_MAC = /Mac|iPhone|iPad/.test(navigator.userAgent);
 const MONTH_FORMAT = new Intl.DateTimeFormat("en-US", { year: "numeric", month: "short" });
 
 type Result =
@@ -39,6 +38,9 @@ const query = ref("");
 const active = ref(0);
 /** Opened or closed from the keyboard, it appears and goes at once, as fast as the key that asked. */
 const instant = ref(false);
+/** Set after mount, so hydration starts from the Ctrl K the server drew. */
+const isMac = ref(false);
+onMounted(() => (isMac.value = /Mac|iPhone|iPad/.test(navigator.userAgent)));
 /** Asked for on first open, so the roadmap page fetches no article list until someone searches. */
 const articles = shallowRef<JsonData<Article[]> | null>(null);
 const built = shallowRef<JsonData<string[]> | null>(null);
@@ -184,7 +186,7 @@ onBeforeUnmount(() => window.removeEventListener("keydown", onShortcut));
   <button
     class="header-button search-trigger"
     data-tip-pos="bottom"
-    :data-tip="`Search · ${IS_MAC ? '⌘K' : 'Ctrl K'}`"
+    :data-tip="`Search · ${isMac ? '⌘K' : 'Ctrl K'}`"
     aria-label="Search entries and roadmaps"
     aria-haspopup="dialog"
     aria-keyshortcuts="Meta+K Control+K"
@@ -192,7 +194,7 @@ onBeforeUnmount(() => window.removeEventListener("keydown", onShortcut));
   >
     <Icon :paths="ICONS.search" :size="17" />
     <span class="search-trigger-label">Search</span>
-    <kbd v-if="IS_MAC"
+    <kbd v-if="isMac"
       ><Icon :paths="ICONS.command" :size="10" :stroke-width="2.5" /><span class="upper"
         >K</span
       ></kbd

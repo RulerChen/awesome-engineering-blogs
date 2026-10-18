@@ -1,4 +1,4 @@
-import { nextTick, ref, type Ref } from "vue";
+import { nextTick, onMounted, ref, type Ref } from "vue";
 import { STORAGE_KEYS, save } from "./storage.js";
 
 export type Theme = "light" | "dark";
@@ -14,7 +14,11 @@ const REVEAL_MS = 450;
 
 /** Applied as `data-theme` on <html>, which the inline head script already set before first paint. */
 export function useTheme(): ThemeControls {
-  const theme = ref<Theme>(document.documentElement.dataset.theme === "dark" ? "dark" : "light");
+  const theme = ref<Theme>("light");
+  // Read after mount, so hydration starts from the light page the server drew.
+  onMounted(() => {
+    theme.value = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+  });
 
   async function apply(value: Theme): Promise<void> {
     theme.value = value;

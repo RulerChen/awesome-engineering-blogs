@@ -39,7 +39,8 @@ watch(
 );
 
 const sentinel = ref<HTMLElement | null>(null);
-const autoLoad = typeof IntersectionObserver !== "undefined";
+// The server has no IntersectionObserver, but draws what the browsers this bundle runs in will.
+const autoLoad = import.meta.env.SSR || typeof IntersectionObserver !== "undefined";
 let observer: IntersectionObserver | null = null;
 let filling = false;
 

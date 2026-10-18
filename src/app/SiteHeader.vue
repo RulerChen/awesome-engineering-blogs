@@ -32,11 +32,14 @@ const count = computed(() => {
 });
 
 /** Whether content runs under the header, which is when its bottom edge shows. */
-const scrolled = ref(window.scrollY > 0);
+const scrolled = ref(false);
 const onScroll = (): void => {
   scrolled.value = window.scrollY > 0;
 };
-onMounted(() => window.addEventListener("scroll", onScroll, { passive: true }));
+onMounted(() => {
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+});
 onBeforeUnmount(() => window.removeEventListener("scroll", onScroll));
 
 /** A real link, so middle and modifier clicks open a new tab; only a plain left click switches in place. */

@@ -1,4 +1,4 @@
-import { type Ref, readonly, ref } from "vue";
+import { type Ref, onMounted, readonly, ref } from "vue";
 import { STORAGE_KEYS, loadJson, loadRecord, save } from "../app/storage.js";
 
 /** One mark per entry, so saving an ignored entry is how the ignore is taken back. */
@@ -30,7 +30,9 @@ function read(): Record<string, EntryState> {
 
 /** Saved and ignored marks, written through to localStorage on every toggle. */
 export function useEntryState(): EntryStates {
-  const states = ref(read());
+  const states = ref<Record<string, EntryState>>({});
+  // Read after mount, so hydration starts from the unmarked list the server drew.
+  onMounted(() => (states.value = read()));
 
   function set(id: string, state: EntryState | undefined): void {
     const next = { ...states.value };

@@ -1,4 +1,4 @@
-import { type Ref, readonly, ref } from "vue";
+import { type Ref, onMounted, readonly, ref } from "vue";
 import { STORAGE_KEYS, loadRecord, save } from "../app/storage.js";
 import type { RoadmapItem } from "../shared/roadmap.js";
 
@@ -14,7 +14,9 @@ export function progressKey(roadmapId: string, item: RoadmapItem): string {
 
 /** Which items the reader has ticked, written through to localStorage. */
 export function useProgress(): Progress {
-  const done = ref(loadRecord(STORAGE_KEYS.roadmapProgress) as Record<string, true>);
+  const done = ref<Record<string, true>>({});
+  // Read after mount, so hydration starts from the unticked roadmap the server drew.
+  onMounted(() => (done.value = loadRecord(STORAGE_KEYS.roadmapProgress) as Record<string, true>));
 
   function toggle(key: string): void {
     const next = { ...done.value };

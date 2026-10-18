@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { onActivateKey } from "../app/a11y.js";
 import type { Evolution } from "../shared/roadmap.js";
 import { NODE_HEIGHT, NODE_WIDTH, layoutEvolution } from "./evolutionLayout.js";
@@ -8,10 +8,14 @@ const props = defineProps<{ evolution: Evolution }>();
 
 /** .evo-node-label's font, so labels wrap by the width they will really take. */
 const LABEL_FONT = '700 12.5px "Bricolage Grotesque"';
-const context = document.createElement("canvas").getContext("2d");
+const context = import.meta.env.SSR ? null : document.createElement("canvas").getContext("2d");
 /** Measured again once the web font is in, since a fallback font measures differently. */
-const fontsLoaded = ref(document.fonts.status === "loaded");
-void document.fonts.ready.then(() => (fontsLoaded.value = true));
+const fontsLoaded = ref(import.meta.env.SSR || document.fonts.status === "loaded");
+if (!import.meta.env.SSR) void document.fonts.ready.then(() => (fontsLoaded.value = true));
+
+/** The body is drawn after mount, since the server cannot measure labels the way the browser will. */
+const mounted = ref(false);
+onMounted(() => (mounted.value = true));
 
 function measure(text: string): number {
   if (!context) return text.length * 7.3;
@@ -67,7 +71,7 @@ function selectEra(index: number): void {
       <span class="chevron" aria-hidden="true">▾</span>
     </summary>
     <!-- One box for the part that folds, so its edge and spacing fold with it. -->
-    <div class="rm-evo-body">
+    <div v-if="mounted" class="rm-evo-body">
       <ul class="rm-evo-legend">
         <li v-for="(lane, index) in evolution.lanes" :key="lane">
           <i :style="{ background: laneColor(index) }"></i>{{ lane }}

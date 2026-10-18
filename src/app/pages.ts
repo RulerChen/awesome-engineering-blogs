@@ -14,6 +14,11 @@ export function topicUrl(id: string): string {
   return `${BASE}${topicPath(id)}`;
 }
 
+/** The page the server is drawing, under the site base; the server has no window to read it from. */
+let serverPath = "";
+
+const urlPath = (): string => (import.meta.env.SSR ? BASE + serverPath : window.location.pathname);
+
 /** Trailing slash optional, because a typed URL usually lacks it. */
 function pageAt(pathname: string): Page {
   const roadmap = PAGES.roadmap.path;
@@ -22,19 +27,32 @@ function pageAt(pathname: string): Page {
 
 /** The topic in /roadmap/<id>/, or null on the topic map. */
 export function topicInUrl(): string | null {
-  const { pathname } = window.location;
   const roadmap = PAGES.roadmap.path;
-  return pathname.startsWith(roadmap) ? pathname.slice(roadmap.length).split("/")[0] || null : null;
+  const path = urlPath();
+  return path.startsWith(roadmap) ? path.slice(roadmap.length).split("/")[0] || null : null;
 }
 
 // Topics used to be a ?topic= query; links from then still open the topic.
-const legacyTopic = new URLSearchParams(window.location.search).get("topic");
-if (legacyTopic && pageAt(window.location.pathname) === "roadmap")
-  history.replaceState(null, "", topicUrl(legacyTopic));
+if (!import.meta.env.SSR) {
+  const legacyTopic = new URLSearchParams(window.location.search).get("topic");
+  if (legacyTopic && pageAt(window.location.pathname) === "roadmap")
+    history.replaceState(null, "", topicUrl(legacyTopic));
+}
 
-export const currentPage = ref<Page>(pageAt(window.location.pathname));
-// The dev server answers every path with index.html, whose title is the blog's.
-document.title = PAGES[currentPage.value].title;
+export const currentPage = ref<Page>(pageAt(urlPath()));
+
+/** The url's page under the site base, named as the build names the HTML file it prerenders for it. */
+export function pagePath(): string {
+  if (currentPage.value === "blog") return "";
+  const topic = topicInUrl();
+  return topic ? topicPath(topic) : ROADMAP_PATH;
+}
+
+/** Server only: points the app at one page, under the site base, before it is drawn. */
+export function renderAt(path: string): void {
+  serverPath = path;
+  currentPage.value = pageAt(urlPath());
+}
 
 function show(page: Page): void {
   currentPage.value = page;
@@ -77,4 +95,8 @@ export function searchList(text: string): void {
   navigate("blog", `${PAGES.blog.path}?${query}`);
 }
 
-window.addEventListener("popstate", () => show(pageAt(window.location.pathname)));
+if (!import.meta.env.SSR) {
+  // The dev server answers every path with index.html, whose title is the blog's.
+  document.title = PAGES[currentPage.value].title;
+  window.addEventListener("popstate", () => show(pageAt(window.location.pathname)));
+}

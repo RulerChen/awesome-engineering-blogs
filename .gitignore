@@ -1,5 +1,6 @@
 node_modules/
 dist/
+dist-ssr/
 coverage/
 public/articles.json
 public/roadmaps/

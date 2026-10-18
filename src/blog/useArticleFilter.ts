@@ -1,4 +1,13 @@
-import { computed, onScopeDispose, reactive, watch, type ComputedRef, type Ref } from "vue";
+import {
+  computed,
+  onBeforeUnmount,
+  onMounted,
+  onScopeDispose,
+  reactive,
+  watch,
+  type ComputedRef,
+  type Ref,
+} from "vue";
 import { currentPage } from "../app/pages.js";
 import type { Article } from "../shared/entry.js";
 import { type Count, type FilterState, applyFilters, companyCounts, tagCounts } from "./filter.js";
@@ -16,7 +25,10 @@ export interface ArticleFilter {
 
 /** Search and filters over the full list, mirrored into the URL query so a filtered view can be shared. */
 export function useArticleFilter(articles: Ref<Article[]>): ArticleFilter {
-  const state = reactive<FilterState>(queryToState(window.location.search));
+  // The server draws the bare list; a filtered url is drawn afresh in the browser rather than hydrated.
+  const state = reactive<FilterState>(
+    queryToState(import.meta.env.SSR ? "" : window.location.search),
+  );
 
   let timer: ReturnType<typeof setTimeout> | undefined;
   watch(state, () => {
@@ -34,8 +46,8 @@ export function useArticleFilter(articles: Ref<Article[]>): ArticleFilter {
   const onPopState = (): void => {
     if (currentPage.value === "blog") Object.assign(state, queryToState(window.location.search));
   };
-  window.addEventListener("popstate", onPopState);
-  onScopeDispose(() => window.removeEventListener("popstate", onPopState));
+  onMounted(() => window.addEventListener("popstate", onPopState));
+  onBeforeUnmount(() => window.removeEventListener("popstate", onPopState));
 
   return {
     state,

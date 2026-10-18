@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref, watchEffect } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref, watchEffect } from "vue";
 import { PAGES, topicInUrl, topicUrl } from "../app/pages.js";
 import RoadmapView from "./RoadmapView.vue";
 import TopicMap from "./TopicMap.vue";
@@ -27,10 +27,11 @@ const failed = computed(() => index.failed.value || Boolean(opened.value?.failed
 const roadmap = computed(() => opened.value?.data.value ?? null);
 
 /** The topic's own name in the tab and in search results; the map and a loading topic keep the page's. */
-watchEffect(() => {
-  const title = PAGES.roadmap.title;
-  document.title = roadmap.value ? `${roadmap.value.title} · ${title}` : title;
-});
+if (!import.meta.env.SSR)
+  watchEffect(() => {
+    const title = PAGES.roadmap.title;
+    document.title = roadmap.value ? `${roadmap.value.title} · ${title}` : title;
+  });
 
 /** Pushed, not replaced, so the back button returns to the map. */
 function go(id: string | null): void {
@@ -46,7 +47,7 @@ function toTop(): void {
 const onPopState = (): void => {
   current.value = topicInUrl();
 };
-window.addEventListener("popstate", onPopState);
+onMounted(() => window.addEventListener("popstate", onPopState));
 onBeforeUnmount(() => window.removeEventListener("popstate", onPopState));
 </script>
 

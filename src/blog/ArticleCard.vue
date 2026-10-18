@@ -15,6 +15,8 @@ const DATE_FORMAT = new Intl.DateTimeFormat("en-US", {
   year: "numeric",
   month: "short",
   day: "numeric",
+  // Dates are UTC midnight, so a reader west of UTC would otherwise see the day before.
+  timeZone: "UTC",
 });
 
 const props = withDefaults(
