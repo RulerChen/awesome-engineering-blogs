@@ -181,31 +181,39 @@ function selectTag(tag: string): void {
           </template>
         </FilterBar>
 
-        <div v-if="shown.length === 0" class="empty">
-          <div class="empty-title">{{ empty.title }}</div>
-          <div>{{ empty.text }}</div>
-          <button
-            v-if="view === 'all' && articles.length > 0"
-            class="empty-clear"
-            @click="resetFilter(state)"
-          >
-            Clear all filters
-          </button>
-        </div>
-        <ArticleList
-          v-else
-          :articles="shown"
-          :reset-key="`${view}?${stateToQuery(state)}`"
-          :series-index="seriesIndex"
-          :states="states"
-          :active-tags="state.tags"
-          :removes="removes"
-          :arriving="arriving"
-          @toggle-saved="toggleMark($event, 'saved')"
-          @toggle-hidden="toggleMark($event, 'hidden')"
-          @select-series="selectSeries"
-          @select-tag="selectTag"
-        />
+        <!-- Keyed by tab, so a new tab fades in like a page while a filter, used far more often, swaps the list at once. -->
+        <Transition
+          mode="out-in"
+          enter-from-class="page-enter-from"
+          enter-active-class="page-enter-active"
+        >
+          <div v-if="shown.length === 0" :key="`empty-${view}`" class="empty">
+            <div class="empty-title">{{ empty.title }}</div>
+            <div>{{ empty.text }}</div>
+            <button
+              v-if="view === 'all' && articles.length > 0"
+              class="empty-clear"
+              @click="resetFilter(state)"
+            >
+              Clear all filters
+            </button>
+          </div>
+          <ArticleList
+            v-else
+            :key="view"
+            :articles="shown"
+            :reset-key="`${view}?${stateToQuery(state)}`"
+            :series-index="seriesIndex"
+            :states="states"
+            :active-tags="state.tags"
+            :removes="removes"
+            :arriving="arriving"
+            @toggle-saved="toggleMark($event, 'saved')"
+            @toggle-hidden="toggleMark($event, 'hidden')"
+            @select-series="selectSeries"
+            @select-tag="selectTag"
+          />
+        </Transition>
       </div>
     </Transition>
     <!-- Always present, so screen readers announce the message that appears in it. -->

@@ -38,9 +38,9 @@ const query = ref("");
 const active = ref(0);
 /** Opened or closed from the keyboard, it appears and goes at once, as fast as the key that asked. */
 const instant = ref(false);
-/** Set after mount, so hydration starts from the Ctrl K the server drew. */
+/** For the tooltip only, set after mount so hydration matches the server; the button's own kbd is picked by CSS. */
 const isMac = ref(false);
-onMounted(() => (isMac.value = /Mac|iPhone|iPad/.test(navigator.userAgent)));
+onMounted(() => (isMac.value = document.documentElement.dataset.platform === "mac"));
 /** Asked for on first open, so the roadmap page fetches no article list until someone searches. */
 const articles = shallowRef<JsonData<Article[]> | null>(null);
 const built = shallowRef<JsonData<string[]> | null>(null);
@@ -194,12 +194,13 @@ onBeforeUnmount(() => window.removeEventListener("keydown", onShortcut));
   >
     <Icon :paths="ICONS.search" :size="17" />
     <span class="search-trigger-label">Search</span>
-    <kbd v-if="isMac"
+    <!-- Both drawn; the platform flag the head script set shows one before first paint. -->
+    <kbd class="kbd-mac"
       ><Icon :paths="ICONS.command" :size="10" :stroke-width="2.5" /><span class="upper"
         >K</span
       ></kbd
     >
-    <kbd v-else><span class="upper">Ctrl K</span></kbd>
+    <kbd class="kbd-other"><span class="upper">Ctrl K</span></kbd>
   </button>
   <dialog
     ref="dialog"

@@ -42,6 +42,17 @@
 .filter-trigger[aria-expanded="true"] {
   border-color: var(--accent);
 }
+/* The label and the ones it keeps room for share one cell, so the widest sets the trigger's width. */
+.filter-label {
+  display: grid;
+  text-align: left;
+}
+.filter-label > * {
+  grid-area: 1 / 1;
+}
+.filter-label-room {
+  visibility: hidden;
+}
 .filter-trigger .chevron {
   font-size: 10px;
   color: var(--muted);
@@ -189,6 +200,9 @@
   border: 1.5px solid var(--line);
   color: #fff8f0;
   box-sizing: border-box;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
 }
 .filter-option .checkbox.checked {
   border-color: var(--accent);
@@ -233,6 +247,15 @@
   font-size: var(--text-md);
   cursor: pointer;
   font-family: inherit;
+  transition: opacity 0.15s var(--ease-out);
+}
+/* Hidden in place with nothing to clear; fades out first, then leaves the tab order. */
+.filter-clear-all:disabled {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.1s var(--ease-out),
+    visibility 0s linear 0.1s;
 }
 @media (hover: hover) {
   .filter-clear-all:hover {
@@ -395,6 +418,15 @@
 }
 .tab-button.active {
   color: var(--accent-ink);
+}
+/* Narrow enough that the date trigger, Clear all and the tabs share the second row on a 360px phone. */
+@media (max-width: 400px) {
+  .tab-button {
+    padding-inline: 8px;
+  }
+  .filter-clear-all {
+    padding-inline: 10px;
+  }
 }
 /* Article list */
 .article-list {

@@ -26,6 +26,9 @@ const THEME_SCRIPT = `try {
   document.documentElement.dataset.theme = theme;
 } catch {}`;
 
+/** Runs before first paint, so the search button draws this platform's shortcut from the start instead of swapping it on hydration. */
+const PLATFORM_SCRIPT = `if (/Mac|iPhone|iPad/.test(navigator.userAgent)) document.documentElement.dataset.platform = "mac";`;
+
 /** The page's data, fetched alongside the bundle instead of after it; the paths match topicInUrl and roadmapFile. */
 function dataPreloadScript(base: string): string {
   return `{
@@ -117,7 +120,7 @@ function sharedHead(): Plugin {
       const title = `<title>${PAGE_TITLES.blog}</title>`;
       if (!html.includes(title)) throw new Error("shared-head: index.html title not found");
       // Written ahead of the stylesheet Vite injects: an inline script after a loading stylesheet waits for it.
-      const scripts = [THEME_SCRIPT, dataPreloadScript(base)].map(
+      const scripts = [THEME_SCRIPT, PLATFORM_SCRIPT, dataPreloadScript(base)].map(
         (code) => `\n    <script>${code}</script>`,
       );
       return {

@@ -76,6 +76,14 @@
   line-height: 1.4;
   flex-shrink: 0;
   font-variant-numeric: tabular-nums;
+  display: inline-grid;
+  text-align: center;
+}
+.header-count > * {
+  grid-area: 1 / 1;
+}
+.header-count-room {
+  visibility: hidden;
 }
 .header-spacer {
   flex: 1;
@@ -192,4 +200,13 @@
   .search-trigger::after {
     display: none;
   }
+}
+[data-platform="mac"] .search-trigger .kbd-other,
+:root:not([data-platform="mac"]) .search-trigger .kbd-mac {
+  display: none;
+}
+/* Both icons are drawn and the theme attribute picks one, so a dark page never shows the light page's icon first. */
+[data-theme="dark"] .theme-moon,
+:root:not([data-theme="dark"]) .theme-sun {
+  display: none;
 }

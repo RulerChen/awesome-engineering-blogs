@@ -94,13 +94,25 @@ onMounted(() => {
   };
 });
 
+/** A save that keeps the card in the list pops the bookmark, so the fill reads as the answer to the click. */
+function pop(button: HTMLElement): void {
+  button
+    .querySelector("svg")
+    ?.animate([{ transform: "scale(1)" }, { transform: "scale(1.3)" }, { transform: "scale(1)" }], {
+      duration: 300,
+      easing: FOLD_TIMING.easing,
+    });
+}
+
 /** A toggle that takes the card out of the list folds it first; a second click while it folds is ignored. */
-async function act(state: EntryState): Promise<void> {
+async function act(state: EntryState, event: MouseEvent): Promise<void> {
   if (leaving) return;
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (props.removes.includes(state) && root.value && !reduce) {
     leaving = true;
     await collapse(root.value);
+  } else if (state === "saved" && !props.saved && !reduce) {
+    pop(event.currentTarget as HTMLElement);
   }
   if (state === "saved") emit("toggleSaved", props.article.id);
   else emit("toggleHidden", props.article.id);
@@ -208,7 +220,7 @@ const avatarLetter = computed(() => sourceName(props.article.source).charAt(0) |
         data-tip-pos="left"
         :aria-label="saved ? 'Remove bookmark' : 'Save for later'"
         :data-tip="saved ? 'Remove bookmark' : 'Save for later'"
-        @click="act('saved')"
+        @click="act('saved', $event)"
       >
         <Icon :paths="ICONS.bookmark" :filled="saved" />
       </button>
@@ -218,7 +230,7 @@ const avatarLetter = computed(() => sourceName(props.article.source).charAt(0) |
         :class="{ active: hidden }"
         :aria-label="hidden ? 'Put this back in the list' : 'Ignore this entry'"
         :data-tip="hidden ? 'Put this back in the list' : 'Ignore — stop showing this entry'"
-        @click="act('hidden')"
+        @click="act('hidden', $event)"
       >
         <Icon :paths="hidden ? ICONS.eye : ICONS.eyeOff" />
       </button>

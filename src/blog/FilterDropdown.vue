@@ -1,7 +1,15 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from "vue";
 
-const props = defineProps<{ label: string; open: boolean }>();
+const props = withDefaults(
+  defineProps<{
+    label: string;
+    open: boolean;
+    /** Labels the trigger keeps room for, so switching between them does not move the controls after it. */
+    room?: string[];
+  }>(),
+  { room: () => [] },
+);
 const emit = defineEmits<{ toggle: [] }>();
 
 const trigger = ref<HTMLButtonElement | null>(null);
@@ -32,7 +40,10 @@ function fit(el: Element): void {
 <template>
   <div class="filter-dropdown">
     <button ref="trigger" class="filter-trigger" :aria-expanded="open" @click="emit('toggle')">
-      <span>{{ label }}</span>
+      <span class="filter-label">
+        <span>{{ label }}</span>
+        <span v-for="text in room" :key="text" class="filter-label-room">{{ text }}</span>
+      </span>
       <span class="chevron">▾</span>
     </button>
     <!-- The open menu, which mounts fresh each time so its search box and pins start over. -->

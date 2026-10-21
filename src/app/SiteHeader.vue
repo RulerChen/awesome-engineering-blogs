@@ -23,11 +23,14 @@ const count = computed(() => {
   if (!total) return null;
   const shown = shownCount.value;
   const all = total.toLocaleString("en-US");
+  // Both forms at their widest, so the pill keeps one width as the list narrows.
+  const room = [`${all} entries`, `${all} of ${all}`];
   return shown === null || shown === total
-    ? { text: `${all} entries`, tip: "Blog entries on the list" }
+    ? { text: `${all} entries`, tip: "Blog entries on the list", room }
     : {
         text: `${shown.toLocaleString("en-US")} of ${all}`,
         tip: "Entries shown, of all on the list",
+        room,
       };
 });
 
@@ -64,9 +67,10 @@ function warm(page: Page): void {
       <h1 class="heading-font">{{ PAGES[currentPage].title }}</h1>
       <div class="header-spacer"></div>
       <!-- Left of the tabs, so the tabs sit in the same place on every page. -->
-      <span v-if="count" class="header-count" :data-tip="count.tip" data-tip-pos="bottom">{{
-        count.text
-      }}</span>
+      <span v-if="count" class="header-count" :data-tip="count.tip" data-tip-pos="bottom">
+        <span>{{ count.text }}</span>
+        <span v-for="text in count.room" :key="text" class="header-count-room">{{ text }}</span>
+      </span>
       <nav
         class="page-nav segmented"
         :style="{ '--count': TABS.length, '--index': activeTab }"
@@ -109,7 +113,8 @@ function warm(page: Page): void {
         :data-tip="theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
         @click="toggleTheme($event.currentTarget as Element)"
       >
-        <Icon :paths="theme === 'dark' ? ICONS.sun : ICONS.moon" :size="17" />
+        <Icon class="theme-moon" :paths="ICONS.moon" :size="17" />
+        <Icon class="theme-sun" :paths="ICONS.sun" :size="17" />
       </button>
     </div>
   </header>

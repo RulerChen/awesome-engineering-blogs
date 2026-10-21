@@ -31,6 +31,9 @@ function closeMenu(): void {
   openMenu.value = null;
 }
 
+/** Two digits, so a trigger holds its width up to 99 picks; the face draws every digit the same width. */
+const SELECTED_ROOM = "00 selected";
+
 const companyLabel = computed(() => {
   const count = props.state.companies.length;
   return count ? `${count} selected` : "All companies";
@@ -75,13 +78,19 @@ function clearAll(): void {
 
     <FilterDropdown
       :label="companyLabel"
+      :room="['All companies', SELECTED_ROOM]"
       :open="openMenu === 'company'"
       @toggle="toggleMenu('company')"
     >
       <CompanyMenu v-if="openMenu === 'company'" v-model="state.companies" :companies="companies" />
     </FilterDropdown>
 
-    <FilterDropdown :label="topicLabel" :open="openMenu === 'topic'" @toggle="toggleMenu('topic')">
+    <FilterDropdown
+      :label="topicLabel"
+      :room="['All topics', SELECTED_ROOM]"
+      :open="openMenu === 'topic'"
+      @toggle="toggleMenu('topic')"
+    >
       <TopicMenu
         v-if="openMenu === 'topic'"
         v-model="state.tags"
@@ -123,7 +132,10 @@ function clearAll(): void {
       <span class="filter-chip-x">✕</span>
     </button>
 
-    <button v-if="isFiltered(state)" class="filter-clear-all" @click="clearAll">Clear all</button>
+    <!-- Kept in the row while hidden, so the first filter does not reflow the row or push the list down. -->
+    <button class="filter-clear-all" :disabled="!isFiltered(state)" @click="clearAll">
+      Clear all
+    </button>
 
     <div class="filter-bar-end">
       <slot name="end" />
