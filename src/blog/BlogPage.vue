@@ -172,6 +172,7 @@ function selectTag(tag: string): void {
                 :class="{ active: view === tab.view }"
                 :aria-label="tab.icon ? tab.label : undefined"
                 :data-tip="tab.icon ? tab.label : undefined"
+                :data-tip-pos="tab.icon ? 'bottom' : undefined"
                 @click="view = tab.view"
               >
                 <Icon v-if="tab.icon" v-bind="tab.icon" :size="14" />
