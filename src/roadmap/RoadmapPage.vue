@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watchEffect } from "vue";
-import { PAGES, topicInUrl, topicUrl } from "../app/pages.js";
+import { PAGES, beginSwitch, currentPage, land, topicInUrl, topicUrl } from "../app/pages.js";
 import RoadmapView from "./RoadmapView.vue";
 import TopicMap from "./TopicMap.vue";
 import { useRoadmap, useRoadmapIds } from "./data.js";
@@ -36,16 +36,19 @@ if (!import.meta.env.SSR)
 /** Pushed, not replaced, so the back button returns to the map. */
 function go(id: string | null): void {
   history.pushState(null, "", id ? topicUrl(id) : PAGES.roadmap.path);
+  beginSwitch(true);
   current.value = id;
 }
 
-/** Once the old view is gone, so it never jumps to the top while still fading out. */
-function toTop(): void {
-  window.scrollTo({ top: 0 });
-}
+/** What an id draws: its roadmap, or the map for none or one not built, where no fade runs to land the scroll. */
+const view = (id: string | null): string | null => (id && built.value.has(id) ? id : null);
 
+// A popstate that left for the blog is the app's to handle; this page is on its way out.
 const onPopState = (): void => {
-  current.value = topicInUrl();
+  if (currentPage.value !== "roadmap") return;
+  const id = topicInUrl();
+  if (view(id) !== view(current.value)) beginSwitch();
+  current.value = id;
 };
 onMounted(() => window.addEventListener("popstate", onPopState));
 onBeforeUnmount(() => window.removeEventListener("popstate", onPopState));
@@ -54,7 +57,7 @@ onBeforeUnmount(() => window.removeEventListener("popstate", onPopState));
 <template>
   <main>
     <!-- The same fade as switching pages, so going into a topic and back reads like the level above. -->
-    <Transition name="page" mode="out-in" @after-leave="toTop">
+    <Transition name="page" mode="out-in" @after-leave="land">
       <p v-if="loading" class="loading">Loading roadmaps…</p>
       <p v-else-if="failed" class="error">Could not load roadmaps. Try refreshing.</p>
       <div v-else-if="roadmap" :key="roadmap.id" class="layout wide">

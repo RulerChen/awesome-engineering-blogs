@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, ref, watch } from "vue";
+import { currentPage } from "../app/pages.js";
 import type { Article } from "../shared/entry.js";
 import ArticleCard from "./ArticleCard.vue";
 import type { Series } from "./series.js";
@@ -36,6 +37,23 @@ watch(
   () => {
     visibleCount.value = INITIAL_VISIBLE;
   },
+);
+
+const list = ref<HTMLElement | null>(null);
+// A detached card forgets its measured height and comes back at the 180px guess, so each one is pinned first and the restored scroll lands where it was.
+watch(
+  currentPage,
+  (page) => {
+    const cards = list.value?.children as HTMLCollectionOf<HTMLElement> | undefined;
+    if (page === "blog" || !cards?.length) return;
+    const style = getComputedStyle(cards[0]);
+    const frame = ["paddingTop", "paddingBottom", "borderTopWidth", "borderBottomWidth"] as const;
+    const edges = frame.reduce((sum, side) => sum + parseFloat(style[side]), 0);
+    // The rect's fractional height, since rounding each card would add up to a few pixels over a long list.
+    for (const card of cards)
+      card.style.containIntrinsicHeight = `auto ${card.getBoundingClientRect().height - edges}px`;
+  },
+  { flush: "sync" },
 );
 
 const sentinel = ref<HTMLElement | null>(null);
@@ -78,7 +96,7 @@ onBeforeUnmount(() => observer?.disconnect());
 
 <template>
   <div>
-    <div class="article-list">
+    <div ref="list" class="article-list">
       <ArticleCard
         v-for="article in articles.slice(0, visibleCount)"
         :key="article.id"
