@@ -1,5 +1,14 @@
 [
   {
+    "title": "The bridge to agent-scale Git infrastructure",
+    "url": "https://github.blog/engineering/architecture-optimization/the-bridge-to-agent-scale-git-infrastructure/",
+    "source": "GitHub",
+    "publishedAt": "2026-10-21",
+    "domain": "database",
+    "tags": ["replication", "object-storage", "multi-region", "migration", "git"],
+    "summary": "Busy repos couldn't take cross-region quorum latency, so Spokes moves write serialization from repository to reference."
+  },
+  {
     "title": "From latency to instant: Modernizing GitHub Issues navigation performance",
     "url": "https://github.blog/engineering/architecture-optimization/from-latency-to-instant-modernizing-github-issues-navigation-performance/",
     "source": "GitHub",
