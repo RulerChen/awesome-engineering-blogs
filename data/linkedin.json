@@ -1,5 +1,14 @@
 [
   {
+    "title": "Rebuilding LinkedIn's Tracking Infrastructure: Scaling, Migrating, and Hardening a High-Volume Event Pipeline",
+    "url": "https://www.linkedin.com/blog/engineering/infrastructure/rebuilding-linkedins-tracking-infrastructure-scaling-migrating-and-hardening-a-high-volume-event-pipeline",
+    "source": "LinkedIn",
+    "publishedAt": "2026-10-20",
+    "domain": "data",
+    "tags": ["ingestion", "overload-control", "migration", "kafka"],
+    "summary": "One legacy service took all tracking events, so LinkedIn rebuilt ingestion per workload and cut over via tagged samples."
+  },
+  {
     "title": "The training infrastructure behind AI-Powered Job Search: 8X faster multi-teacher distillation",
     "url": "https://www.linkedin.com/blog/engineering/infrastructure/the-training-infrastructure-behind-ai-powered-job-search-eight-x-faster-multi-teacher-distillation",
     "source": "LinkedIn",

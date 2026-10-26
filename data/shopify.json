@@ -1,5 +1,14 @@
 [
   {
+    "title": "Cross-store product clustering across millions of stores",
+    "url": "https://shopify.engineering/catalog-clustering-part-ii",
+    "source": "Shopify",
+    "publishedAt": "2026-10-20",
+    "domain": "machine-learning",
+    "tags": ["training", "llm", "vector"],
+    "summary": "Merchants list one product differently, so Shopify groups listings across stores with tiered scorers and clustering."
+  },
+  {
     "title": "How River takes security work from a fix to merge",
     "url": "https://shopify.engineering/river-vulnerability-remediation",
     "source": "Shopify",

@@ -1,5 +1,14 @@
 [
   {
+    "title": "Rapidly scaling online storage to serve over 1 billion ChatGPT users (Part II)",
+    "url": "https://openai.com/index/scaling-storage-one-billion-users-part-two",
+    "source": "OpenAI",
+    "publishedAt": "2026-10-23",
+    "domain": "database",
+    "tags": ["caching", "cdc", "overload-control", "multi-region"],
+    "summary": "Hot keys and data growth starved shared Cosmos DB containers, so Habitat adopted hot-key throttling, QoS and RU splits."
+  },
+  {
     "title": "Rapidly scaling online storage to serve over 1 billion ChatGPT users (Part I)",
     "url": "https://openai.com/index/scaling-storage-one-billion-users-part-one",
     "source": "OpenAI",

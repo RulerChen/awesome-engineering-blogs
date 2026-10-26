@@ -1,5 +1,14 @@
 [
   {
+    "title": "Single-tenant Titus: VM-level isolation on a multi-tenant container platform",
+    "url": "https://netflixtechblog.com/single-tenant-titus-vm-level-isolation-on-a-multi-tenant-container-platform-6d8b1909d163",
+    "source": "Netflix",
+    "publishedAt": "2026-10-22",
+    "domain": "infrastructure",
+    "tags": ["isolation"],
+    "summary": "Streaming jobs stalled on noisy neighbors cgroups can't fence, so Titus now gives such tasks their own right-sized VMs."
+  },
+  {
     "title": "TimeSeries Tiered Storage Journey: Kafka/Flink Streams to Native Cassandra Cold Reads",
     "url": "https://netflixtechblog.com/timeseries-tiered-storage-journey-kafka-flink-streams-to-native-cassandra-cold-reads-e59d597c9d60",
     "source": "Netflix",
