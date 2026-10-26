@@ -9,6 +9,15 @@
     "summary": "Hot keys and data growth starved shared Cosmos DB containers, so Habitat adopted hot-key throttling, QoS and RU splits."
   },
   {
+    "title": "How we built ChatGPT’s novel ad stack for user trust and relevance",
+    "url": "https://openai.com/index/building-chatgpt-ad-stack",
+    "source": "OpenAI",
+    "publishedAt": "2026-10-21",
+    "domain": "machine-learning",
+    "tags": ["llm", "agent", "ranking", "vector"],
+    "summary": "Chat intent builds over turns, so a stateful ads service beside ChatGPT has an LLM call retrieval and auction tools."
+  },
+  {
     "title": "Rapidly scaling online storage to serve over 1 billion ChatGPT users (Part I)",
     "url": "https://openai.com/index/scaling-storage-one-billion-users-part-one",
     "source": "OpenAI",
