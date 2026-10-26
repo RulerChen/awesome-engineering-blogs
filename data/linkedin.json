@@ -117,15 +117,6 @@
     "summary": "Fixes G1 tail-latency spikes on FollowFeed's huge heap by flattening Avro objects and moving to generational ZGC."
   },
   {
-    "title": "Reducing Apache Spark Application Dependencies Upload by 99%",
-    "url": "https://www.linkedin.com/blog/engineering/open-source/reducing-apache-spark-application-dependencies-upload-by-99-",
-    "source": "LinkedIn",
-    "publishedAt": "2023-03-09",
-    "domain": "data",
-    "tags": ["hdfs", "spark"],
-    "summary": "Stops Spark jobs from re-uploading the same JARs each run with a per-user HDFS cache, chosen over YARN Shared Cache."
-  },
-  {
     "title": "Opal: Building a mutable dataset in data lake",
     "url": "https://www.linkedin.com/blog/engineering/data-management/opal-building-a-mutable-dataset-in-data-lake",
     "source": "LinkedIn",

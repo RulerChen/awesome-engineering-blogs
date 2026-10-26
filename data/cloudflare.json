@@ -44,15 +44,6 @@
     "summary": "Avoids full-plan delays on huge Iceberg tables by streaming pruned row groups in ORDER BY order so top-K ends early."
   },
   {
-    "title": "How TimescaleDB helped us scale analytics and reporting",
-    "url": "https://blog.cloudflare.com/timescaledb-art/",
-    "source": "Cloudflare",
-    "publishedAt": "2025-07-08",
-    "domain": "database",
-    "tags": ["time-series", "migration"],
-    "summary": "Tackles slow raw device-log queries in Postgres with TimescaleDB's columnstore, as ClickHouse needs batched inserts."
-  },
-  {
     "title": "How Cloudflare's systems dynamically route traffic across the globe",
     "url": "https://blog.cloudflare.com/meet-traffic-manager/",
     "source": "Cloudflare",

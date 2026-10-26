@@ -9,21 +9,12 @@
     "summary": "Agents hold a process while tools run, so Infinity suspends each at its tool call like a stackless coroutine."
   },
   {
-    "title": "Accelerating Spark queries with Iceberg materialized views",
-    "url": "https://aws.amazon.com/blogs/big-data/accelerating-spark-queries-with-iceberg-materialized-views/",
-    "source": "Amazon",
-    "publishedAt": "2026-09-10",
-    "domain": "data",
-    "tags": ["query-engine", "iceberg", "spark"],
-    "summary": "Speeds Spark queries whose SQL can't change by swapping matching plan subtrees for fresh Iceberg materialized views."
-  },
-  {
     "title": "Under the hood: how Amazon EKS Auto Mode detects, repairs, and diagnoses node failures",
     "url": "https://aws.amazon.com/blogs/containers/under-the-hood-how-amazon-eks-auto-mode-detects-repairs-and-diagnoses-node-failures/",
     "source": "Amazon",
     "publishedAt": "2026-08-05",
     "domain": "infrastructure",
-    "tags": ["failover", "kubernetes", "eks"],
+    "tags": ["failover", "kubernetes"],
     "summary": "Ends manual repair of nodes with dead GPUs or wedged runtimes via agent-set node conditions that Karpenter acts on."
   },
   {
@@ -32,7 +23,7 @@
     "source": "Amazon",
     "publishedAt": "2025-07-16",
     "domain": "infrastructure",
-    "tags": ["control-plane", "eks", "etcd", "kubernetes"],
+    "tags": ["control-plane", "etcd", "kubernetes"],
     "summary": "Lifts etcd's write ceiling for huge AI clusters by moving raft consensus to AWS's journal and BoltDB onto tmpfs."
   },
   {

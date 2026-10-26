@@ -18,14 +18,6 @@
     "summary": "Stops past incidents from skewing alert baselines with Granomaly percentile bands that exclude z-score outliers."
   },
   {
-    "title": "Use Compression, Luke: Cut 20% of the Cloud Cost with a Single Code Change!",
-    "url": "https://medium.com/booking-com-development/use-compression-luke-cut-20-of-the-cloud-cost-with-a-single-code-change-510d14d96891",
-    "source": "Booking",
-    "publishedAt": "2025-02-05",
-    "domain": "reliability",
-    "summary": "Cuts the cross-AZ bill of Mimir's replicated gRPC writes with S2 compression, since zstd blew up ingester memory."
-  },
-  {
     "title": "Predicting cancellations with survival modeling",
     "url": "https://booking.ai/predicting-cancellations-with-survival-modeling-a299af54249b",
     "source": "Booking",

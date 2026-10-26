@@ -97,14 +97,5 @@
     "domain": "frontend",
     "tags": ["ssr", "react", "redis"],
     "summary": "Traces SSR timeouts to bee-queue sending every result to every web server, then gives each host its own Redis queue."
-  },
-  {
-    "title": "Our not-so-magic journey scaling low latency, multi-region services on AWS",
-    "url": "https://www.atlassian.com/blog/how-we-build/aws-scaling-multi-region-low-latency-service",
-    "source": "Atlassian",
-    "publishedAt": "2019-05-21",
-    "domain": "distributed-systems",
-    "tags": ["caching", "multi-region", "dynamodb"],
-    "summary": "Shields Atlassian's tenant context service from DynamoDB tail latency with node-local caches invalidated over SNS."
   }
 ]

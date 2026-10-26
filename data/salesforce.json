@@ -86,15 +86,6 @@
     "summary": "Keeps index tables on other servers consistent with data by writing index rows unverified first and repairing on read."
   },
   {
-    "title": "Optimizing EKS networking for scale",
-    "url": "https://engineering.salesforce.com/optimizing-eks-networking-for-scale-1325706c8f6d/",
-    "source": "Salesforce",
-    "publishedAt": "2021-03-23",
-    "domain": "network",
-    "tags": ["infrastructure", "eks", "kubernetes"],
-    "summary": "Avoids VPC subnet exhaustion from idle warm-pool IPs on EKS nodes by lowering WARM_IP_TARGET and WARM_ENI_TARGET."
-  },
-  {
     "title": "Hadoop/HBase on Kubernetes and Public Cloud (Part II)",
     "url": "https://engineering.salesforce.com/hadoop-hbase-on-kubernetes-and-public-cloud-part-ii-e465f346da63/",
     "source": "Salesforce",

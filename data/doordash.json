@@ -53,15 +53,6 @@
     "summary": "Offloads features from costly, slow-to-resize Redis to CockroachDB, packed as JSON rows that touch fewer ranges."
   },
   {
-    "title": "Building scalable real time event processing with Kafka and Flink",
-    "url": "https://careersatdoordash.com/blog/building-scalable-real-time-event-processing-with-kafka-and-flink/",
-    "source": "DoorDash",
-    "publishedAt": "2022-10-21",
-    "domain": "data",
-    "tags": ["stream-processing", "flink", "kafka"],
-    "summary": "Fixes high latency and cost from bespoke multi-hop pipelines with Iguazu, a shared Kafka and Flink event platform."
-  },
-  {
     "title": "How We Applied Client-Side Caching to Improve Feature Store Performance by 70%",
     "url": "https://careersatdoordash.com/blog/how-we-applied-client-side-caching/",
     "source": "DoorDash",

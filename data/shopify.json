@@ -9,15 +9,6 @@
     "summary": "Merchants list one product differently, so Shopify groups listings across stores with tiered scorers and clustering."
   },
   {
-    "title": "How River takes security work from a fix to merge",
-    "url": "https://shopify.engineering/river-vulnerability-remediation",
-    "source": "Shopify",
-    "publishedAt": "2026-09-02",
-    "domain": "security",
-    "tags": ["agent"],
-    "summary": "Stops patching stale findings and closing on green but unmerged PRs by having River recheck each finding at repo head."
-  },
-  {
     "title": "We replaced Redis with MySQL for inventory reservations—and it scaled",
     "url": "https://shopify.engineering/scaling-inventory-reservations",
     "source": "Shopify",
@@ -63,15 +54,6 @@
     "domain": "reliability",
     "tags": ["testing"],
     "summary": "Picks full-scale BFCM load tests over a scaled model because added connections alone overloaded upstreams at idle."
-  },
-  {
-    "title": "Safely Adding NOT NULL Columns to Your Database Tables",
-    "url": "https://shopify.engineering/add-not-null-colums-to-database",
-    "source": "Shopify",
-    "publishedAt": "2022-10-04",
-    "domain": "database",
-    "tags": ["schema-change", "mysql"],
-    "summary": "Avoids broken writes and lost rows in LHM's NOT NULL adds by requiring a DEFAULT and a duplicate check before UNIQUE."
   },
   {
     "title": "Spin Infrastructure Adventures: Containers, Systemd, and CGroups",
@@ -155,15 +137,6 @@
     "domain": "network",
     "tags": ["dns", "failover"],
     "summary": "Moves teams off manual DNS failover to Terraform-managed answers narrowed by region, health, priority and weight."
-  },
-  {
-    "title": "How Shopify Manages Petabyte Scale MySQL Backup and Restore",
-    "url": "https://shopify.engineering/shopify-manages-petabyte-scale-mysql-backup-restore",
-    "source": "Shopify",
-    "publishedAt": "2019-10-01",
-    "domain": "database",
-    "tags": ["disaster-recovery", "mysql"],
-    "summary": "Replaces Xtrabackup, whose restores were too slow for the recovery target, with Persistent Disk snapshots."
   },
   {
     "title": "Surviving Flashes of High-Write Traffic Using Scriptable Load Balancers (Part II)",

@@ -59,7 +59,7 @@
     "source": "PlanetScale",
     "publishedAt": "2024-07-23",
     "domain": "database",
-    "tags": ["schema-change", "mysql"],
+    "tags": ["mysql"],
     "summary": "Picks shadow-table tools for non-blocking MySQL ALTERs, as INPLACE stalls replicas and INSTANT covers few changes."
   },
   {

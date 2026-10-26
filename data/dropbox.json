@@ -66,15 +66,6 @@
     "summary": "Replaces an outage-causing failover script with a runbook DAG, then unplugs San Jose to prove nothing depends on it."
   },
   {
-    "title": "Atlas: Our journey from a Python monolith to a managed platform",
-    "url": "https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform",
-    "source": "Dropbox",
-    "publishedAt": "2021-03-04",
-    "domain": "distributed-systems",
-    "tags": ["microservice", "monolith", "migration"],
-    "summary": "Splits Metaserver, where any critical bug forced a full rollback, into Atlasservlet clusters the Atlas team runs."
-  },
-  {
     "title": "Alki, or how we learned to stop worrying and love cold metadata",
     "url": "https://dropbox.tech/infrastructure/alki--or-how-we-learned-to-stop-worrying-and-love-cold-metadata",
     "source": "Dropbox",
