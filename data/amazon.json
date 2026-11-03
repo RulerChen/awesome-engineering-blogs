@@ -1,5 +1,14 @@
 [
   {
+    "title": "AWS contributes a large-transaction binary log optimization to MySQL",
+    "url": "https://aws.amazon.com/blogs/database/aws-contributes-a-large-transaction-binary-log-optimization-to-mysql/",
+    "source": "Amazon",
+    "publishedAt": "2026-11-02",
+    "domain": "database",
+    "tags": ["transactions", "mysql"],
+    "summary": "Copying a large transaction into the MySQL binlog froze every other commit, so BOLT promotes its spill file instead."
+  },
+  {
     "title": "Introducing Infinity: a runtime for extreme agent concurrency",
     "url": "https://aws.amazon.com/blogs/opensource/introducing-infinity-a-runtime-for-extreme-agent-concurrency/",
     "source": "Amazon",

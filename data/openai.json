@@ -1,5 +1,14 @@
 [
   {
+    "title": "Scaling Git at OpenAI",
+    "url": "https://openai.com/index/scaling-git-at-openai",
+    "source": "OpenAI",
+    "publishedAt": "2026-11-02",
+    "domain": "programming",
+    "tags": ["version-control", "monorepo", "consistency", "caching", "git"],
+    "summary": "Codex-era load slowed pushes and fetches on OpenAI's monorepo, so Pando orders writes per branch and reuses packfiles."
+  },
+  {
     "title": "Rapidly scaling online storage to serve over 1 billion ChatGPT users (Part II)",
     "url": "https://openai.com/index/scaling-storage-one-billion-users-part-two",
     "source": "OpenAI",
