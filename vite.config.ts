@@ -202,6 +202,20 @@ function sitemap(): Plugin {
         fileName: "robots.txt",
         source: `User-agent: *\nAllow: /\n\nSitemap: ${root}sitemap.xml\n`,
       });
+      // Its presence turns off the host's SPA fallback, so unknown paths get a real 404 instead of a soft one.
+      this.emitFile({
+        type: "asset",
+        fileName: "404.html",
+        source: [
+          `<!doctype html>`,
+          `<html lang="en">`,
+          `<meta charset="utf-8" />`,
+          `<meta name="viewport" content="width=device-width, initial-scale=1" />`,
+          `<title>Page not found</title>`,
+          `<p>This page does not exist. Go to the <a href="${base}">blog list</a> or the <a href="${base}${ROADMAP_PATH}">roadmaps</a>.</p>`,
+          "",
+        ].join("\n"),
+      });
     },
   };
 }
